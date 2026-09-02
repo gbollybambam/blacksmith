@@ -23,4 +23,4 @@
 
 ## 5. Unsettled Choices & Assumptions
 **The Assumption:** `CONCEPT.md` bounds memory through stream chunking, but does not define a maximum size for the incoming network payload.
-**The Decision:** I am setting a maximum upload limit of 20MB. Because the stream never writes to disk, a massive file missing an APP1 segment would force the server to scan gigabytes of chunks in memory. Terminating the request at 20MB prevents a single upload from monopolizing CPU cycles and holding the network connection open indefinitely.
+**The Decision:** I am setting a maximum upload limit of 20MB. Because the stream never writes to disk, a massive file missing an APP1 segment would force the server to scan gigabytes of chunks in memory. Terminating the request at 20MB prevents a single upload from monopolizing CPU cycles.
