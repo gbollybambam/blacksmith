@@ -22,5 +22,5 @@
 **The Plan:** I will close this gap by studying the Node.js `Buffer` API (specifically methods like `indexOf` and `readUInt16BE`) and reviewing the hex signatures of the JPEG specification to build the custom stream parser.
 
 ## 5. Unsettled Choices & Assumptions
-**The Assumption:** `CONCEPT.md` bounds memory through stream chunking, but does not define a maximum size for the incoming network payload.
-**The Decision:** I am setting a maximum upload limit of 20MB. Because the stream never writes to disk, a massive file missing an APP1 segment would force the server to scan gigabytes of chunks in memory. Terminating the request at 20MB prevents a single upload from monopolizing CPU cycles.
+**The Assumption:** `CONCEPT.md` bounds memory via the ~64KB APP1 segment cap, but does not define a maximum size for the incoming network payload.
+**The Decision:** I am setting a maximum upload limit of 20MB. While memory is safely bounded, a massive file missing an APP1 segment would still force the server to receive and process gigabytes of data. Terminating the request at 20MB directly bounds the total bytes received, preventing a single upload from monopolizing CPU cycles.
